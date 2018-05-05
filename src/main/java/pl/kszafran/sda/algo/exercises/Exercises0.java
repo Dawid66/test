@@ -1,6 +1,7 @@
 package pl.kszafran.sda.algo.exercises;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Zaimplementuj poniższe metody z użyciem wyrażeń lambda i/lub klas Stream oraz Optional.
@@ -11,22 +12,28 @@ public class Exercises0 {
      * Funkcja zwraca pierwszy indeks pod którym
      * określony znak znajduje się w podanym Stringu.
      */
+
     public OptionalInt indexOf(String string, char c) {
-        throw new UnsupportedOperationException("Not implemented yet");
+       int index= string.indexOf(c);
+        if(index == -1){
+           return OptionalInt.empty();
+        }
+        else return OptionalInt.of(index);
     }
 
     /**
      * Znajduje autora książki o podanym tytule.
      */
     public Optional<String> findAuthorByTitle(BookRepository repository, String title) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        Optional<Book> byTitle = repository.findByTitle(title);
+        return byTitle.map(book -> book.getAuthor());
     }
 
     /**
      * Funkcja zwraca ilość liczb dodatnich w podanej liście.
      */
     public long numPositive(List<Integer> numbers) {
-        throw new UnsupportedOperationException("Not implemented yet");
+      return numbers.stream().filter(e->e>0).count();
     }
 
     /**
@@ -34,7 +41,13 @@ public class Exercises0 {
      * Wynikowa lista jest posortowana alfabetycznie oraz nie zawiera duplikatów.
      */
     public List<String> authorsOf(Book... books) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        return Arrays.stream(books)
+                .map(Book::getAuthor)
+                .sorted()
+                .distinct()
+                .collect(Collectors.toList())
+
+        ;
     }
 
     /**
@@ -50,7 +63,9 @@ public class Exercises0 {
      * Zwraca mapę pozwalającą znaleźć książki po tytule.
      */
     public Map<String, Book> byTitle(List<Book> books) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        books.stream()
+        ;
+        return null;
     }
 
     ////////////////////////////////////////////
