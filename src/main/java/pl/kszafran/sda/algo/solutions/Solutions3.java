@@ -38,6 +38,7 @@ public class Solutions3 extends Exercises3 {
         int low = 0;
         int high = array.length - 1;
 
+
         while (low <= high) {
             int mid = (low + high) >>> 1;
             if (array[mid] > value) {
@@ -164,4 +165,4 @@ public class Solutions3 extends Exercises3 {
 
         }
         }
-}
+
