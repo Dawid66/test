@@ -115,77 +115,77 @@ public class Exercises3Test {
         assertEquals(-1, exercises.interpolationSearch(new int[]{4}, 6));
         assertEquals(0, exercises.interpolationSearch(new int[]{4}, 4));
         assertEquals(0, exercises.interpolationSearch(new int[]{4, 5}, 4));
+    }
 
-       Path tempDir;
-        Path file1txt;
-        Path file2txt;
+    Path tempDir;
+    Path file1txt;
+    Path file2txt;
 
-        Path subDir;
-        Path subfile1txt;
-        Path subfile2txt;
-        Path subfile1log;
+    Path subDir;
+    Path subfile1txt;
+    Path subfile2txt;
+    Path subfile1log;
 
-        /**
-         * Przygotowuje poniższą strukturę plików:
-         *
-         * java97029848529390830660
-         * ├── file1.txt
-         * ├── file2.txt
-         * └── sub
-         *     ├── subfile1.log
-         *     ├── subfile1.txt
-         *     └── subfile2.txt
-         */
-        @BeforeEach
-        void setUp() throws IOException {
-            tempDir = Files.createTempDirectory("java9");
-            tempDir.toFile().deleteOnExit();
-            file1txt = Files.createFile(tempDir.resolve("file1.txt"));
-            file2txt = Files.createFile(tempDir.resolve("file2.txt"));
+    /**
+     * Przygotowuje poniższą strukturę plików:
+     * <p>
+     * java97029848529390830660
+     * ├── file1.txt
+     * ├── file2.txt
+     * └── sub
+     *    ├── subfile1.log
+     *    ├── subfile1.txt
+     *    └── subfile2.txt
+     */
+    @BeforeEach
+    void setUp() throws IOException {
+        tempDir = Files.createTempDirectory("java9");
+        tempDir.toFile().deleteOnExit();
+        file1txt = Files.createFile(tempDir.resolve("file1.txt"));
+        file2txt = Files.createFile(tempDir.resolve("file2.txt"));
 
-            subDir = Files.createDirectory(tempDir.resolve("sub"));
-            subfile1log = Files.createFile(subDir.resolve("subfile1.log"));
-            subfile1txt = Files.createFile(subDir.resolve("subfile1.txt"));
-            subfile2txt = Files.createFile(subDir.resolve("subfile2.txt"));
-        }
+        subDir = Files.createDirectory(tempDir.resolve("sub"));
+        subfile1log = Files.createFile(subDir.resolve("subfile1.log"));
+        subfile1txt = Files.createFile(subDir.resolve("subfile1.txt"));
+        subfile2txt = Files.createFile(subDir.resolve("subfile2.txt"));
+    }
 
-        @Test
-        void test_findFiles() throws IOException {
-            assertEquals(
-                    List.of(file1txt.toFile(), file2txt.toFile()),
-                    exercises.findFiles(tempDir.toFile(), "file.*"));
+    @Test
+    void test_findFiles() throws IOException {
+        assertEquals(
+                List.of(file1txt.toFile(), file2txt.toFile()),
+                exercises.findFiles(tempDir.toFile(), "file.*"));
 
-            assertEquals(
-                    List.of(file1txt.toFile(), file2txt.toFile(), subfile1txt.toFile(), subfile2txt.toFile()),
-                    exercises.findFiles(tempDir.toFile(), ".*file\\d+.txt"));
+        assertEquals(
+                List.of(file1txt.toFile(), file2txt.toFile(), subfile1txt.toFile(), subfile2txt.toFile()),
+                exercises.findFiles(tempDir.toFile(), ".*file\\d+.txt"));
 
-            assertEquals(
-                    List.of(file1txt.toFile()),
-                    exercises.findFiles(file1txt.toFile(), ".*")); // not a directory
+        assertEquals(
+                List.of(file1txt.toFile()),
+                exercises.findFiles(file1txt.toFile(), ".*")); // not a directory
 
-            assertEquals(
-                    emptyList(),
-                    exercises.findFiles(new File("does/not/exist"), ".*"));
-        }
+        assertEquals(
+                emptyList(),
+                exercises.findFiles(new File("does/not/exist"), ".*"));
+    }
 
-        @Test
-        void test_findFilesNIO() throws IOException {
-            assertEquals(
-                    List.of(file1txt, file2txt),
-                    exercises.findFilesNIO(tempDir, Pattern.compile("file.*")).collect(toList()));
+    @Test
+    void test_findFilesNIO() throws IOException {
+        assertEquals(
+                List.of(file1txt, file2txt),
+                exercises.findFilesNIO(tempDir, Pattern.compile("file.*")).collect(toList()));
 
-            assertEquals(
-                    List.of(file1txt, file2txt, subfile1txt, subfile2txt),
-                    exercises.findFilesNIO(tempDir, Pattern.compile(".*file\\d+.txt")).collect(toList()));
+        assertEquals(
+                List.of(file1txt, file2txt, subfile1txt, subfile2txt),
+                exercises.findFilesNIO(tempDir, Pattern.compile(".*file\\d+.txt")).collect(toList()));
 
-            assertEquals(
-                    List.of(file1txt),
-                    exercises.findFilesNIO(file1txt, Pattern.compile(".*")).collect(toList())); // not a directory
+        assertEquals(
+                List.of(file1txt),
+                exercises.findFilesNIO(file1txt, Pattern.compile(".*")).collect(toList())); // not a directory
 
-            assertEquals(
-                    emptyList(),
-                    exercises.findFilesNIO(Paths.get("does/not/exist"), Pattern.compile(".*")).collect(toList()));
+        assertEquals(
+                emptyList(),
+                exercises.findFilesNIO(Paths.get("does/not/exist"), Pattern.compile(".*")).collect(toList()));
 
-        }
     }
 }
