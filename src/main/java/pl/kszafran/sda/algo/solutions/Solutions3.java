@@ -40,7 +40,7 @@ public class Solutions3 extends Exercises3 {
 
 
         while (low <= high) {
-            int mid = (low + high) >>> 1;
+            int mid = (low + high) >>> 1; // http://research.googleblog.com/2006/06/extra-extra-read-all-about-it-nearly.html
             if (array[mid] > value) {
                 high = mid - 1;
             } else if (array[mid] < value) {
