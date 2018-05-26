@@ -115,58 +115,98 @@ public class Exercises4 {
 
         private Node<T> head;
 
+
         public SdaLinkedList(T[] elements) {
-            throw new UnsupportedOperationException("Not implemented yet");
+
+
+            for (int i = elements.length - 1; i >= 0; i--) {
+                head = new Node<>(elements[i], head);
+            }
+
         }
 
         @Override
         public boolean isEmpty() {
-            throw new UnsupportedOperationException("Not implemented yet");
+            return head == null;
         }
 
         @Override
         public int size() {
-            throw new UnsupportedOperationException("Not implemented yet");
+            int size = 0;
+            Node<T> currentNode = head;
+            while (currentNode != null) {
+                currentNode = currentNode.next;
+                size++;
+            }
+            return size;
         }
 
         @Override
         public T getFirst() {
-            throw new UnsupportedOperationException("Not implemented yet");
+            if (isEmpty()) {
+                throw new NoSuchElementException();
+            }
+
+            return head.element;
+
         }
 
         @Override
         public T getLast() {
-            throw new UnsupportedOperationException("Not implemented yet");
+            if (isEmpty()) {
+                throw new NoSuchElementException();
+            }
+            Node<T> last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            return last.element;
+
         }
 
         @Override
         public T get(int index) {
-            throw new UnsupportedOperationException("Not implemented yet");
+            if (index < 0) {
+                throw new IndexOutOfBoundsException();
+            } else if (isEmpty()) throw new IndexOutOfBoundsException();
+            Node<T> asd = head;
+            for (int i = 0; i < index; i++) {
+                asd = asd.next;
+                if (asd == null) throw new IndexOutOfBoundsException();
+            }
+            return asd.element;
+
         }
 
         @Override
         public void clear() {
-            throw new UnsupportedOperationException("Not implemented yet");
+            head = null;
         }
 
         @Override
         public void addFirst(T element) {
-            throw new UnsupportedOperationException("Not implemented yet");
+            head = new Node<>(element, head);
         }
 
         @Override
         public void addLast(T element) {
-            throw new UnsupportedOperationException("Not implemented yet");
+           if(isEmpty()){
+               addFirst(element);
+           }
+          else lastNode().next=new Node<>(element, null);
         }
 
         @Override
         public void removeFirst() {
-            throw new UnsupportedOperationException("Not implemented yet");
+            if (isEmpty()) throw new  NoSuchElementException();
+             head=head.next;
         }
 
         @Override
         public void removeLast() {
-            throw new UnsupportedOperationException("Not implemented yet");
+            if(head==null)throw new  NoSuchElementException();
+            else if (head.next==null) removeFirst();
+            else lastNode().next=head;
         }
 
         ////////////////////////////////////////////
@@ -205,5 +245,21 @@ public class Exercises4 {
                 this.next = next;
             }
         }
+
+        private Node<T> lastNode()
+
+        {
+            if (isEmpty()) {
+                throw new NoSuchElementException();
+            }
+            Node<T> last = head;
+            while (last.next != null) {
+                last = last.next;
+            }
+            return last;
+        }
+
     }
-}
+
+    }
+

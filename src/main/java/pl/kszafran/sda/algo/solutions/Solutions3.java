@@ -77,7 +77,7 @@ public class Solutions3 extends Exercises3 {
     @Override
     public Optional<IntRange> binarySearchRange(int[] array, int value) {
         int start = findBoundary(array, value, Boundary.START);
-        return start == -1
+        return (start == -1)
                 ? Optional.empty()
                 : Optional.of(new IntRange(start, findBoundary(array, value, Boundary.END)));
     }

@@ -8,7 +8,7 @@ public class Quicksort {
         int pivot = arr[0];
         int point = pivot + 1;
         while (arr[i] < pivot) {
-            swap(arr[i], point);
+            // swap(arr[i], point);
             point = point + 1;
             while (pivot < arr[j]) {
                 j++;
@@ -18,13 +18,17 @@ public class Quicksort {
         while (pivot < arr[j]) {
             j++;
         }
-
-
-        public void swap (int i, int point){
-            int temp = i;
-            i = point;
-            point = temp;
-        }
+        return i;
     }
 }
+
+
+
+        // public void swap (int i, int point){
+        //     int temp = i;
+        //     i = point;
+        //     point = temp;
+        // }
+
+
 
